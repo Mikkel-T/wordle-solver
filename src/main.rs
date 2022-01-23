@@ -8,6 +8,13 @@ fn main() {
     let data = String::from_utf8_lossy(include_bytes!("../words.txt"));
     let mut words: Vec<String> = data.lines().map(|i| i.to_string()).collect();
     loop {
+        println!("");
+
+        if words.is_empty() {
+            println!("No more words to choose from, quitting program.");
+            break;
+        }
+
         let recommended = recommend(&words);
         println!(
             "Suggested word: \"{}\", word was chosen from {} words",
