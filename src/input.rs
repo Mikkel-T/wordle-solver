@@ -3,7 +3,7 @@ use regex::Regex;
 use std::io::{stdin, stdout, Write};
 
 pub fn get_result() -> String {
-    let good_input = Regex::new(r"^(r|restart|q|quit|i|invalid|h|help|[nwc]{5})$").unwrap();
+    let good_input = Regex::new(r"^(r|restart|q|quit|i|invalid|h|help|a|all|[nwc]{5})$").unwrap();
     print!("Input result: ");
     let mut result = String::new();
     loop {

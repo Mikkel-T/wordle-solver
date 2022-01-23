@@ -44,6 +44,11 @@ fn main() {
             "h" | "help" => {
                 help::print();
             }
+            "a" | "all" => {
+                for word in &words {
+                    println!("{}", word.to_uppercase());
+                }
+            }
             _ => {
                 words = wordle::filter(&words, recommended, result);
             }
