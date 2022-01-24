@@ -44,13 +44,13 @@ pub fn recommend(words: &Vec<String>) -> String {
     let mut ratings: HashMap<String, u128> = HashMap::new();
 
     for line in words {
-        let mut percentages: Vec<u128> = Vec::new();
+        let mut appearances: Vec<u128> = Vec::new();
 
         for c in unique(line) {
-            percentages.push(*letters.get(&c.to_string()).unwrap());
+            appearances.push(*letters.get(&c.to_string()).unwrap());
         }
 
-        ratings.insert(line.to_string(), percentages.iter().sum::<u128>());
+        ratings.insert(line.to_string(), appearances.iter().sum::<u128>());
     }
 
     let recommendation = ratings.iter().max_by_key(|a| a.1).unwrap().0;
