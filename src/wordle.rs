@@ -35,11 +35,7 @@ pub fn filter(words: &Vec<String>, word: String, result: String) -> Vec<String> 
 pub fn recommend(words: &Vec<String>) -> String {
     let mut letters: HashMap<String, u128> = HashMap::new();
     for line in words {
-        let mut chars = line.chars().collect::<Vec<char>>();
-        let mut uniques = HashSet::new();
-        chars.retain(|e| uniques.insert(e.clone()));
-
-        for c in chars {
+        for c in unique(line) {
             let counter = letters.entry(String::from(c)).or_insert(0);
             *counter += 1;
         }
@@ -49,11 +45,8 @@ pub fn recommend(words: &Vec<String>) -> String {
 
     for line in words {
         let mut percentages: Vec<u128> = Vec::new();
-        let mut chars = line.chars().collect::<Vec<char>>();
-        let mut uniques = HashSet::new();
-        chars.retain(|e| uniques.insert(e.clone()));
 
-        for c in &chars {
+        for c in unique(line) {
             percentages.push(*letters.get(&c.to_string()).unwrap());
         }
 
@@ -62,4 +55,11 @@ pub fn recommend(words: &Vec<String>) -> String {
 
     let recommendation = ratings.iter().max_by_key(|a| a.1).unwrap().0;
     return recommendation.to_string();
+}
+
+pub fn unique(line: &String) -> Vec<char> {
+    let mut chars = line.chars().collect::<Vec<char>>();
+    let mut uniques = HashSet::new();
+    chars.retain(|e| uniques.insert(e.clone()));
+    return chars;
 }
