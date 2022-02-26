@@ -22,3 +22,7 @@ pub fn get_result() -> String {
 
     return result;
 }
+
+pub fn get_words() -> Vec<String> {
+    String::from_utf8_lossy(include_bytes!("../words.txt")).lines().map(|i| i.to_string()).collect()
+}

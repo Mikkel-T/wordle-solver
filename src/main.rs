@@ -4,8 +4,7 @@ mod wordle;
 
 fn main() {
     help::print();
-    let data = String::from_utf8_lossy(include_bytes!("../words.txt"));
-    let mut words: Vec<String> = data.lines().map(|i| i.to_string()).collect();
+    let mut words = input::get_words();
     loop {
         println!("");
 
@@ -32,7 +31,7 @@ fn main() {
             }
             "r" | "restart" => {
                 println!("Restarting...",);
-                words = data.lines().map(|i| i.to_string()).collect();
+                words = input::get_words();
             }
             "i" | "invalid" => {
                 println!(
