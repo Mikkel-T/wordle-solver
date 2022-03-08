@@ -50,7 +50,7 @@ fn main() {
                 }
             }
             _ => {
-                if used_recommended == "y" {
+                if used_recommended {
                     words = wordle::filter(&words, recommended, result);
                 } else {
                     words = wordle::filter(&words, used_word, result);

@@ -2,18 +2,21 @@ use regex::Regex;
 
 use std::io::{stdin, stdout, Write};
 
-pub fn get_result() -> (String, String, String) {
+pub fn get_result() -> (bool, String, String) {
     print!("Did you use the recommended word? [y/n] ");
-    let mut used_recommended = String::new();
+    let mut used_recommended = true;
+    let mut used_recommended_temp = String::new();
     loop {
         stdout().flush().ok().expect("Could not flush stdout");
-        used_recommended.clear();
-        stdin().read_line(&mut used_recommended).expect("Failed to read line");
+        used_recommended_temp.clear();
+        stdin().read_line(&mut used_recommended_temp).expect("Failed to read line");
     
-        used_recommended = used_recommended.trim().to_string();
+        used_recommended_temp = used_recommended_temp.trim().to_string();
     
-        if used_recommended.to_lowercase() == "y" || used_recommended.to_lowercase() ==  "n" {
-            used_recommended = used_recommended.to_lowercase();
+        if used_recommended_temp.to_lowercase() == "y" || used_recommended_temp.to_lowercase() ==  "n" {
+            if used_recommended_temp.to_lowercase() == "n" {
+                used_recommended = false;
+            }
             break;
         } else {
             print!("Invalid answer, try again: ");
@@ -21,7 +24,7 @@ pub fn get_result() -> (String, String, String) {
     }
 
     let mut used_word = String::new();
-    if used_recommended == "n" {
+    if !used_recommended {
         let good_word = Regex::new(r"^\w{5}$").unwrap();
         print!("What word did you use? ");
         loop {
