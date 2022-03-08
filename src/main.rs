@@ -19,7 +19,7 @@ fn main() {
             recommended.to_uppercase(),
             words.len()
         );
-        let result = input::get_result();
+        let (used_recommended, result, used_word) = input::get_result();
         match result.as_str() {
             "ccccc" => {
                 println!("Solved!");
@@ -49,7 +49,11 @@ fn main() {
                 }
             }
             _ => {
-                words = wordle::filter(&words, recommended, result);
+                if used_recommended {
+                    words = wordle::filter(&words, recommended, result);
+                } else {
+                    words = wordle::filter(&words, used_word, result);
+                }
             }
         }
     }
