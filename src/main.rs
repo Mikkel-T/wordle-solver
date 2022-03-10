@@ -1,5 +1,5 @@
 mod help;
-mod input;
+pub mod input;
 mod wordle;
 
 fn main() {

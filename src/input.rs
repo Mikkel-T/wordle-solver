@@ -9,11 +9,15 @@ pub fn get_result() -> (bool, String, String) {
     loop {
         stdout().flush().ok().expect("Could not flush stdout");
         used_recommended_temp.clear();
-        stdin().read_line(&mut used_recommended_temp).expect("Failed to read line");
-    
+        stdin()
+            .read_line(&mut used_recommended_temp)
+            .expect("Failed to read line");
+
         used_recommended_temp = used_recommended_temp.trim().to_string();
-    
-        if used_recommended_temp.to_lowercase() == "y" || used_recommended_temp.to_lowercase() ==  "n" {
+
+        if used_recommended_temp.to_lowercase() == "y"
+            || used_recommended_temp.to_lowercase() == "n"
+        {
             if used_recommended_temp.to_lowercase() == "n" {
                 used_recommended = false;
             }
@@ -30,17 +34,19 @@ pub fn get_result() -> (bool, String, String) {
         loop {
             stdout().flush().ok().expect("Could not flush stdout");
             used_word.clear();
-            stdin().read_line(&mut used_word).expect("Failed to read line");
-    
+            stdin()
+                .read_line(&mut used_word)
+                .expect("Failed to read line");
+
             used_word = used_word.trim().to_string();
-    
+
             if good_word.is_match(&used_word) {
                 break;
             } else {
                 print!("Invalid word, try again: ");
             }
         }
-    }   
+    }
 
     let good_input = Regex::new(r"^(r|restart|q|quit|i|invalid|h|help|a|all|[nwc]{5})$").unwrap();
     print!("Input result: ");
@@ -63,5 +69,8 @@ pub fn get_result() -> (bool, String, String) {
 }
 
 pub fn get_words() -> Vec<String> {
-    String::from_utf8_lossy(include_bytes!("../words.txt")).lines().map(|i| i.to_string()).collect()
+    String::from_utf8_lossy(include_bytes!("../words.txt"))
+        .lines()
+        .map(|i| i.to_string())
+        .collect()
 }

@@ -4,13 +4,26 @@ pub fn filter(words: &Vec<String>, word: String, result: String) -> Vec<String> 
     let word = word.chars().collect::<Vec<char>>();
     let result = result.chars().collect::<Vec<char>>();
     let mut words: Vec<String> = words.into_iter().map(|i| i.to_string()).collect();
+    let mut present: Vec<char> = Vec::new();
+
+    for (i, c) in result.iter().enumerate() {
+        match c {
+            'w' | 'c' => {
+                present.push(word[i]);
+            }
+            _ => {}
+        }
+    }
+
     for (i, c) in result.iter().enumerate() {
         match c {
             'n' => {
-                words = words
-                    .into_iter()
-                    .filter(|w| !w.contains(&word[i].to_string()))
-                    .collect();
+                if !present.iter().any(|j| j == &word[i]) {
+                    words = words
+                        .into_iter()
+                        .filter(|w| !w.contains(&word[i].to_string()))
+                        .collect();
+                }
             }
             'w' => {
                 words = words
